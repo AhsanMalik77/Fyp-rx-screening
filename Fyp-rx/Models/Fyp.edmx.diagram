@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b2261713634411e9c383169fdeeb201" Name="Diagram1">
+        <EntityTypeShape EntityType="RX_SCREENINGModel.AssignRider" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.MedicalStore" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.Medicine" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.Order" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.OrderMedicine" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.Place" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.Prescription" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.Profile" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.Rider" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.StoreMedicine" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RX_SCREENINGModel.User" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__AssignRid__Rider__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__AssignRid__Store__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__StoreMedi__Store__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__OrderMedi__Medic__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__StoreMedi__Medic__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__Order__RiderId__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__Order__UserId__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__OrderMedi__Order__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__Place__OrderId__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__Prescript__UserI__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="RX_SCREENINGModel.FK__Profile__UserId__3B75D760" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

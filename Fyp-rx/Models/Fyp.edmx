@@ -1,0 +1,782 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RX_SCREENINGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssignRider">
+          <Key>
+            <PropertyRef Name="AssignId" />
+          </Key>
+          <Property Name="AssignId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RiderId" Type="int" />
+          <Property Name="StoreId" Type="int" />
+        </EntityType>
+        <EntityType Name="MedicalStore">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="MedicineId" />
+          </Key>
+          <Property Name="MedicineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RiderId" Type="int" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="Time" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bill" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderMedicine">
+          <Key>
+            <PropertyRef Name="OrderMedicineId" />
+          </Key>
+          <Property Name="OrderMedicineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="MedicineId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="PlaceId" />
+          </Key>
+          <Property Name="PlaceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Prescription">
+          <Key>
+            <PropertyRef Name="PrescriptionId" />
+          </Key>
+          <Property Name="PrescriptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="MName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileId" />
+          </Key>
+          <Property Name="ProfileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="PName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="20" />
+          <Property Name="Allergy" Type="nvarchar" MaxLength="200" />
+          <Property Name="MedicalHistory" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Rider">
+          <Key>
+            <PropertyRef Name="RiderId" />
+          </Key>
+          <Property Name="RiderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RName" Type="nvarchar" MaxLength="100" />
+          <Property Name="BikeInfo" Type="nvarchar" MaxLength="150" />
+          <Property Name="Bill" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="StoreMedicine">
+          <Key>
+            <PropertyRef Name="StoreMedicineId" />
+          </Key>
+          <Property Name="StoreMedicineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreId" Type="int" />
+          <Property Name="MedicineId" Type="int" />
+          <Property Name="StockQuantity" Type="int" />
+          <Property Name="ManufacturingDate" Type="date" />
+          <Property Name="ExpiryDate" Type="date" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__AssignRid__Rider__5629CD9C">
+          <End Role="Rider" Type="Self.Rider" Multiplicity="0..1" />
+          <End Role="AssignRider" Type="Self.AssignRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rider">
+              <PropertyRef Name="RiderId" />
+            </Principal>
+            <Dependent Role="AssignRider">
+              <PropertyRef Name="RiderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AssignRid__Store__571DF1D5">
+          <End Role="MedicalStore" Type="Self.MedicalStore" Multiplicity="0..1" />
+          <End Role="AssignRider" Type="Self.AssignRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalStore">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="AssignRider">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__RiderId__4CA06362">
+          <End Role="Rider" Type="Self.Rider" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rider">
+              <PropertyRef Name="RiderId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="RiderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__UserId__4BAC3F29">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderMedi__Medic__534D60F1">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
+          <End Role="OrderMedicine" Type="Self.OrderMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="MedicineId" />
+            </Principal>
+            <Dependent Role="OrderMedicine">
+              <PropertyRef Name="MedicineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderMedi__Order__52593CB8">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderMedicine" Type="Self.OrderMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderMedicine">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Place__OrderId__4F7CD00D">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Place">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__UserI__3E52440B">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Prescription" Type="Self.Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profile__UserId__3B75D760">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StoreMedi__Medic__47DBAE45">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
+          <End Role="StoreMedicine" Type="Self.StoreMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="MedicineId" />
+            </Principal>
+            <Dependent Role="StoreMedicine">
+              <PropertyRef Name="MedicineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StoreMedi__Store__46E78A0C">
+          <End Role="MedicalStore" Type="Self.MedicalStore" Multiplicity="0..1" />
+          <End Role="StoreMedicine" Type="Self.StoreMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalStore">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="StoreMedicine">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RX_SCREENINGModelStoreContainer">
+          <EntitySet Name="AssignRider" EntityType="Self.AssignRider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalStore" EntityType="Self.MedicalStore" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderMedicine" EntityType="Self.OrderMedicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Place" EntityType="Self.Place" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prescription" EntityType="Self.Prescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rider" EntityType="Self.Rider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreMedicine" EntityType="Self.StoreMedicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AssignRid__Rider__5629CD9C" Association="Self.FK__AssignRid__Rider__5629CD9C">
+            <End Role="Rider" EntitySet="Rider" />
+            <End Role="AssignRider" EntitySet="AssignRider" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AssignRid__Store__571DF1D5" Association="Self.FK__AssignRid__Store__571DF1D5">
+            <End Role="MedicalStore" EntitySet="MedicalStore" />
+            <End Role="AssignRider" EntitySet="AssignRider" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__RiderId__4CA06362" Association="Self.FK__Order__RiderId__4CA06362">
+            <End Role="Rider" EntitySet="Rider" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__UserId__4BAC3F29" Association="Self.FK__Order__UserId__4BAC3F29">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderMedi__Medic__534D60F1" Association="Self.FK__OrderMedi__Medic__534D60F1">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="OrderMedicine" EntitySet="OrderMedicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderMedi__Order__52593CB8" Association="Self.FK__OrderMedi__Order__52593CB8">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderMedicine" EntitySet="OrderMedicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Place__OrderId__4F7CD00D" Association="Self.FK__Place__OrderId__4F7CD00D">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__UserI__3E52440B" Association="Self.FK__Prescript__UserI__3E52440B">
+            <End Role="User" EntitySet="User" />
+            <End Role="Prescription" EntitySet="Prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profile__UserId__3B75D760" Association="Self.FK__Profile__UserId__3B75D760">
+            <End Role="User" EntitySet="User" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StoreMedi__Medic__47DBAE45" Association="Self.FK__StoreMedi__Medic__47DBAE45">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="StoreMedicine" EntitySet="StoreMedicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StoreMedi__Store__46E78A0C" Association="Self.FK__StoreMedi__Store__46E78A0C">
+            <End Role="MedicalStore" EntitySet="MedicalStore" />
+            <End Role="StoreMedicine" EntitySet="StoreMedicine" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RX_SCREENINGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AssignRider">
+          <Key>
+            <PropertyRef Name="AssignId" />
+          </Key>
+          <Property Name="AssignId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RiderId" Type="Int32" />
+          <Property Name="StoreId" Type="Int32" />
+          <NavigationProperty Name="Rider" Relationship="Self.FK__AssignRid__Rider__5629CD9C" FromRole="AssignRider" ToRole="Rider" />
+          <NavigationProperty Name="MedicalStore" Relationship="Self.FK__AssignRid__Store__571DF1D5" FromRole="AssignRider" ToRole="MedicalStore" />
+        </EntityType>
+        <EntityType Name="MedicalStore">
+          <Key>
+            <PropertyRef Name="StoreId" />
+          </Key>
+          <Property Name="StoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssignRider" Relationship="Self.FK__AssignRid__Store__571DF1D5" FromRole="MedicalStore" ToRole="AssignRider" />
+          <NavigationProperty Name="StoreMedicine" Relationship="Self.FK__StoreMedi__Store__46E78A0C" FromRole="MedicalStore" ToRole="StoreMedicine" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="MedicineId" />
+          </Key>
+          <Property Name="MedicineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="OrderMedicine" Relationship="Self.FK__OrderMedi__Medic__534D60F1" FromRole="Medicine" ToRole="OrderMedicine" />
+          <NavigationProperty Name="StoreMedicine" Relationship="Self.FK__StoreMedi__Medic__47DBAE45" FromRole="Medicine" ToRole="StoreMedicine" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RiderId" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bill" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rider" Relationship="Self.FK__Order__RiderId__4CA06362" FromRole="Order" ToRole="Rider" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Order__UserId__4BAC3F29" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="OrderMedicine" Relationship="Self.FK__OrderMedi__Order__52593CB8" FromRole="Order" ToRole="OrderMedicine" />
+          <NavigationProperty Name="Place" Relationship="Self.FK__Place__OrderId__4F7CD00D" FromRole="Order" ToRole="Place" />
+        </EntityType>
+        <EntityType Name="OrderMedicine">
+          <Key>
+            <PropertyRef Name="OrderMedicineId" />
+          </Key>
+          <Property Name="OrderMedicineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="MedicineId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Medicine" Relationship="Self.FK__OrderMedi__Medic__534D60F1" FromRole="OrderMedicine" ToRole="Medicine" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderMedi__Order__52593CB8" FromRole="OrderMedicine" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="PlaceId" />
+          </Key>
+          <Property Name="PlaceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Place__OrderId__4F7CD00D" FromRole="Place" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Prescription">
+          <Key>
+            <PropertyRef Name="PrescriptionId" />
+          </Key>
+          <Property Name="PrescriptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="MName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Prescript__UserI__3E52440B" FromRole="Prescription" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="ProfileId" />
+          </Key>
+          <Property Name="ProfileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="PName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Allergy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MedicalHistory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Profile__UserId__3B75D760" FromRole="Profile" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Rider">
+          <Key>
+            <PropertyRef Name="RiderId" />
+          </Key>
+          <Property Name="RiderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BikeInfo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Bill" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssignRider" Relationship="Self.FK__AssignRid__Rider__5629CD9C" FromRole="Rider" ToRole="AssignRider" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Order__RiderId__4CA06362" FromRole="Rider" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="StoreMedicine">
+          <Key>
+            <PropertyRef Name="StoreMedicineId" />
+          </Key>
+          <Property Name="StoreMedicineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreId" Type="Int32" />
+          <Property Name="MedicineId" Type="Int32" />
+          <Property Name="StockQuantity" Type="Int32" />
+          <Property Name="ManufacturingDate" Type="DateTime" Precision="0" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="MedicalStore" Relationship="Self.FK__StoreMedi__Store__46E78A0C" FromRole="StoreMedicine" ToRole="MedicalStore" />
+          <NavigationProperty Name="Medicine" Relationship="Self.FK__StoreMedi__Medic__47DBAE45" FromRole="StoreMedicine" ToRole="Medicine" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Order__UserId__4BAC3F29" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Prescription" Relationship="Self.FK__Prescript__UserI__3E52440B" FromRole="User" ToRole="Prescription" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK__Profile__UserId__3B75D760" FromRole="User" ToRole="Profile" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__AssignRid__Rider__5629CD9C">
+          <End Role="Rider" Type="Self.Rider" Multiplicity="0..1" />
+          <End Role="AssignRider" Type="Self.AssignRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rider">
+              <PropertyRef Name="RiderId" />
+            </Principal>
+            <Dependent Role="AssignRider">
+              <PropertyRef Name="RiderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AssignRid__Store__571DF1D5">
+          <End Role="MedicalStore" Type="Self.MedicalStore" Multiplicity="0..1" />
+          <End Role="AssignRider" Type="Self.AssignRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalStore">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="AssignRider">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StoreMedi__Store__46E78A0C">
+          <End Role="MedicalStore" Type="Self.MedicalStore" Multiplicity="0..1" />
+          <End Role="StoreMedicine" Type="Self.StoreMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalStore">
+              <PropertyRef Name="StoreId" />
+            </Principal>
+            <Dependent Role="StoreMedicine">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderMedi__Medic__534D60F1">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
+          <End Role="OrderMedicine" Type="Self.OrderMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="MedicineId" />
+            </Principal>
+            <Dependent Role="OrderMedicine">
+              <PropertyRef Name="MedicineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StoreMedi__Medic__47DBAE45">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="0..1" />
+          <End Role="StoreMedicine" Type="Self.StoreMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="MedicineId" />
+            </Principal>
+            <Dependent Role="StoreMedicine">
+              <PropertyRef Name="MedicineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__RiderId__4CA06362">
+          <End Role="Rider" Type="Self.Rider" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rider">
+              <PropertyRef Name="RiderId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="RiderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__UserId__4BAC3F29">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderMedi__Order__52593CB8">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderMedicine" Type="Self.OrderMedicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderMedicine">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Place__OrderId__4F7CD00D">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Place">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__UserI__3E52440B">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Prescription" Type="Self.Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Profile__UserId__3B75D760">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RX_SCREENINGEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AssignRider" EntityType="Self.AssignRider" />
+          <EntitySet Name="MedicalStore" EntityType="Self.MedicalStore" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="OrderMedicine" EntityType="Self.OrderMedicine" />
+          <EntitySet Name="Place" EntityType="Self.Place" />
+          <EntitySet Name="Prescription" EntityType="Self.Prescription" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" />
+          <EntitySet Name="Rider" EntityType="Self.Rider" />
+          <EntitySet Name="StoreMedicine" EntityType="Self.StoreMedicine" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK__AssignRid__Rider__5629CD9C" Association="Self.FK__AssignRid__Rider__5629CD9C">
+            <End Role="Rider" EntitySet="Rider" />
+            <End Role="AssignRider" EntitySet="AssignRider" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AssignRid__Store__571DF1D5" Association="Self.FK__AssignRid__Store__571DF1D5">
+            <End Role="MedicalStore" EntitySet="MedicalStore" />
+            <End Role="AssignRider" EntitySet="AssignRider" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StoreMedi__Store__46E78A0C" Association="Self.FK__StoreMedi__Store__46E78A0C">
+            <End Role="MedicalStore" EntitySet="MedicalStore" />
+            <End Role="StoreMedicine" EntitySet="StoreMedicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderMedi__Medic__534D60F1" Association="Self.FK__OrderMedi__Medic__534D60F1">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="OrderMedicine" EntitySet="OrderMedicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StoreMedi__Medic__47DBAE45" Association="Self.FK__StoreMedi__Medic__47DBAE45">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="StoreMedicine" EntitySet="StoreMedicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__RiderId__4CA06362" Association="Self.FK__Order__RiderId__4CA06362">
+            <End Role="Rider" EntitySet="Rider" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__UserId__4BAC3F29" Association="Self.FK__Order__UserId__4BAC3F29">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderMedi__Order__52593CB8" Association="Self.FK__OrderMedi__Order__52593CB8">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderMedicine" EntitySet="OrderMedicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Place__OrderId__4F7CD00D" Association="Self.FK__Place__OrderId__4F7CD00D">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__UserI__3E52440B" Association="Self.FK__Prescript__UserI__3E52440B">
+            <End Role="User" EntitySet="User" />
+            <End Role="Prescription" EntitySet="Prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Profile__UserId__3B75D760" Association="Self.FK__Profile__UserId__3B75D760">
+            <End Role="User" EntitySet="User" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RX_SCREENINGModelStoreContainer" CdmEntityContainer="RX_SCREENINGEntities">
+          <EntitySetMapping Name="AssignRider">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.AssignRider">
+              <MappingFragment StoreEntitySet="AssignRider">
+                <ScalarProperty Name="AssignId" ColumnName="AssignId" />
+                <ScalarProperty Name="RiderId" ColumnName="RiderId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalStore">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.MedicalStore">
+              <MappingFragment StoreEntitySet="MedicalStore">
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicine">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.Medicine">
+              <MappingFragment StoreEntitySet="Medicine">
+                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RiderId" ColumnName="RiderId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderMedicine">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.OrderMedicine">
+              <MappingFragment StoreEntitySet="OrderMedicine">
+                <ScalarProperty Name="OrderMedicineId" ColumnName="OrderMedicineId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Place">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.Place">
+              <MappingFragment StoreEntitySet="Place">
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prescription">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.Prescription">
+              <MappingFragment StoreEntitySet="Prescription">
+                <ScalarProperty Name="PrescriptionId" ColumnName="PrescriptionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profile">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PName" ColumnName="PName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Allergy" ColumnName="Allergy" />
+                <ScalarProperty Name="MedicalHistory" ColumnName="MedicalHistory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rider">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.Rider">
+              <MappingFragment StoreEntitySet="Rider">
+                <ScalarProperty Name="RiderId" ColumnName="RiderId" />
+                <ScalarProperty Name="RName" ColumnName="RName" />
+                <ScalarProperty Name="BikeInfo" ColumnName="BikeInfo" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoreMedicine">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.StoreMedicine">
+              <MappingFragment StoreEntitySet="StoreMedicine">
+                <ScalarProperty Name="StoreMedicineId" ColumnName="StoreMedicineId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="MedicineId" ColumnName="MedicineId" />
+                <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+                <ScalarProperty Name="ManufacturingDate" ColumnName="ManufacturingDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="RX_SCREENINGModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
