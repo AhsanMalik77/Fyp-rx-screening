@@ -32,14 +32,14 @@ namespace Fyp_rx.Controllers
                 if (res == null)
                 {
 
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Password Or Email Is Incorrect");
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Password Or Email Is Incorrect.....");
 
                 }
                 else
                 {
 
 
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Login SuccessFull...");
+                    return Request.CreateErrorResponse(HttpStatusCode.OK, "Login SuccessFull...");
 
 
                 }
